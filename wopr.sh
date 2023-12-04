@@ -84,7 +84,6 @@ do_wifite() {
   FUN=$(whiptail --title "War Operation Plan Response" --backtitle "Hack The Planet!" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT \
     "1 WiFite" "Just Launch WiFite" \
     "2 WiFite All" "Attack All Targets" \
-    "3 WiFite 20db" "Attack Any Close Target" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
@@ -92,14 +91,12 @@ do_wifite() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       1\ *) exec sudo wifite ;;
-      2\ *) exec sudo wifite -inf ;;
-      3\ *) exec sudo wifite -pow 20 -p 20 ;;
+      2\ *) exec sudo wifite -p 20 ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   else
     exit 1
   fi
-  exec sudo wifite
 }
 
 do_deauth() {
@@ -139,3 +136,4 @@ while true; do
     exit 1
   fi
 done
+
